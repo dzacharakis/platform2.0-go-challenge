@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  db:
+    image: postgres
+    container_name: gwi-db
+    volumes:
+      - "../scripts/initdb.sql:/initdb.sql"
+    environment:
+      POSTGRES_PASSWORD: gwidbpass
+      TZ: 'Europe/Athens'
+    ports:  # todo: remove at the end when deploy
+      - "5432:5432"
+  ws:
+    image: go-webservice:1.0
+    container_name: "gwi-ws"
+    network_mode: "host" # todo: remove at the end when deploy
+    ports:
+      - "8080:8080"
